@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿using AutoMapper;
+using BookStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ namespace BookStore.BookOperations
     public class CreateBookQuery
     {
         private readonly Context _context;
-        public CreateBookQuery(Context context)
+        private readonly IMapper _mapper;
+        public CreateBookQuery(Context context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public void Handle(CreateBookModel Model)
         {
@@ -19,11 +22,14 @@ namespace BookStore.BookOperations
             if (book is not null) {
                 throw new InvalidOperationException("we have this book");
             }
-            book = new Book();
-            book.Title = Model.Title;
-            book.PageCount = Model.PageCount;
-            book.PublishDate = Model.PublishDate;
-            book.GenreId = Model.GenreId;
+
+            book = _mapper.Map<Book>(Model);
+            /*
+             * book = new Book();
+             * book.Title = Model.Title;
+             * book.PageCount = Model.PageCount;
+             * book.PublishDate = Model.PublishDate;
+             * book.GenreId = Model.GenreId;*/
 
             _context.Books.Add(book);
             _context.SaveChanges();

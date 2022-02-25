@@ -1,4 +1,5 @@
-﻿using BookStore.Common;
+﻿using AutoMapper;
+using BookStore.Common;
 using BookStore.Models;
 using System;
 using System.Collections.Generic;
@@ -10,27 +11,31 @@ namespace BookStore.BookOperations
     public class GetBookById
     {
         private readonly Context _context;
-        public GetBookById(Context context)
+        private readonly IMapper _mapper;
+        public GetBookById(Context context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public BooksViewModel Handle(int Id)
+        public BooksViewModelDetail Handle(int Id)
         {
             var book = _context.Books.Where(x =>x.Id == Id).SingleOrDefault();
 
             if (book is null)
                 throw new InvalidOperationException("there is no book with this title");
 
+            BooksViewModelDetail vm = _mapper.Map<BooksViewModelDetail>(book);
+            /*
             BooksViewModel vm = new BooksViewModel();
             vm.Title = book.Title;
             vm.PageCount = book.PageCount;
             vm.PublishDate = book.PublishDate.Date.ToString("dd/mm/yyyy");
             vm.GenreType = ((GenreEnum)book.GenreId).ToString();
-
+            */
             return vm;
         }
-        public class BooksViewModel
+        public class BooksViewModelDetail
         {
             public string Title { get; set; }
 

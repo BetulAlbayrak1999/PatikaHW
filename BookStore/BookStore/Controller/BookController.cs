@@ -1,5 +1,9 @@
-﻿using BookStore.BookOperations;
+﻿using AutoMapper;
+using BookStore.BookOperations;
 using BookStore.Models;
+using BookStore.Validator;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,29 +21,37 @@ namespace BookStore.Controller
     public class BookController : ControllerBase
     {
         private readonly Context _context;
-        public BookController(Context context)
+        private readonly IMapper _mapper;
+        public BookController(Context context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetBook()
         {
-            GetBooksQuery query = new GetBooksQuery(_context);
+            GetBooksQuery query = new GetBooksQuery(_context, _mapper);
             var result = query.Handle();
             return Ok(result);
-
         }
         
         [HttpPut("{id}")]
         public IActionResult UpdateItem([FromBody] UpdateBookModel book)
         {
             UpdateBookQuery query = new UpdateBookQuery(_context);
-
+            UpdateBookValidator validator = new UpdateBookValidator();
+            ValidationResult result = new ValidationResult();
             try
             {
-                query.Handle(book);
-                return Ok();
+                if (result.IsValid) {
+                    query.Handle(book);
+                    return Ok();
+                }
+                else {
+                    return BadRequest();
+                }
+                    
             }
             catch (Exception ex)
             {
@@ -50,12 +62,19 @@ namespace BookStore.Controller
         [HttpPost]
         public IActionResult CreateBook([FromBody] CreateBookModel book)
         {
-            CreateBookQuery query = new CreateBookQuery(_context);
+            CreateBookQuery query = new CreateBookQuery(_context, _mapper);
+            
             try 
             {
+                CreateBookValidator validator = new CreateBookValidator();
+                ValidationResult result = new ValidationResult();
+                    
+                validator.ValidateAndThrow(book);
                 query.Handle(book);
+
+
             }
-            catch(Exception ex) 
+            catch (Exception ex) 
             {
                 return BadRequest(ex.Message);
             }
@@ -66,18 +85,39 @@ namespace BookStore.Controller
         [HttpGet("{id}")]
         public IActionResult GetBookById(int Id)
         {
+            GetByIdBookValidator validator = new GetByIdBookValidator();
+            ValidationResult re = new ValidationResult();
+
+            BooksViewModelDetail result;
             
-            BooksViewModel result;
+            GetBookById query = new GetBookById(_context, _mapper);
+            if (re.IsValid)
+            {
+                    result = query.Handle(Id);
+                    return Ok(result);
+            }
+            return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBook(int Id)
+        {
+            Book book = _context.Books.Find(Id);
             try
             {
-                GetBookById query = new GetBookById(_context);
-                result = query.Handle(Id);
+                DeleteBookValidator validator = new DeleteBookValidator();
+                ValidationResult result = new ValidationResult();
+                DeleteBookQuery query = new DeleteBookQuery(_context);
+
+                validator.ValidateAndThrow(book);
+                query.Handle(Id);
+
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            return Ok(result);
+            return Ok();
         }
         private bool ItemExists(int id)
         {

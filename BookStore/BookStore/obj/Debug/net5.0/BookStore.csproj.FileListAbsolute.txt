@@ -30,3 +30,10 @@ C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\obj\Debug\net
 C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\obj\Debug\net5.0\ref\BookStore.dll
 C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\obj\Debug\net5.0\BookStore.pdb
 C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\obj\Debug\net5.0\BookStore.genruntimeconfig.cache
+C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\FluentValidation.dll
