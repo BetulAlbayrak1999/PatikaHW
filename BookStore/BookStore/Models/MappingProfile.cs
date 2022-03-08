@@ -17,8 +17,8 @@ namespace BookStore.Models
         public MappingProfile()
         {
             CreateMap<CreateBookModel, Book>();
-            CreateMap<Book, BooksViewModelDetail>().ForMember(dest => dest.GenreType, opt => opt.MapFrom(src => ((GenreEnum)src.GenreId).ToString()));
-            CreateMap<Book, BooksViewModel>().ForMember(dest => dest.GenreType, opt => opt.MapFrom(src => ((GenreEnum)src.Id).ToString()));
+            CreateMap<Book, BooksViewModelDetail>().ForMember(dest => dest.GenreType, opt => opt.MapFrom(src => src.Genre.Name));
+            CreateMap<Book, BooksViewModel>().ForMember(dest => dest.GenreType, opt => opt.MapFrom(src => src.Genre.Name));
             CreateMap<Genre, GenresViewModel>();
             CreateMap<Genre, GenresViewDetailsModel>();
         }

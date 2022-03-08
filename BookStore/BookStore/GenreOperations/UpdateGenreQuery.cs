@@ -22,7 +22,7 @@ namespace BookStore.GenreOperations
             if (genre is null)
                 throw new InvalidOperationException("we don't have this genre");
             if(_context.Genres.Any(x=>x.Name.ToLower() == Model.Name.ToLower() && x.Id != GenreId))
-            genre.Name = Model.Name.Trim() == default ? Model.Name : genre.Name;
+            genre.Name = string.IsNullOrEmpty(Model.Name.Trim())? genre.Name : Model.Name;
             genre.IsActive = Model.IsActive;
             _context.SaveChanges();
         }

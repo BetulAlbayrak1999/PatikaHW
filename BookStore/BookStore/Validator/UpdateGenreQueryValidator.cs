@@ -11,7 +11,7 @@ namespace BookStore.Validator
     {
         public UpdateGenreQueryValidator()
         {
-            RuleFor(r => r.Model.Name).MinimumLength(3).When(x=> x.Model.Name.Trim() != string.Empty);
+            RuleFor(r => r.Model.Name).MinimumLength(3).When(x=> x.Model.Name!= string.Empty);
         }
     }
 }
