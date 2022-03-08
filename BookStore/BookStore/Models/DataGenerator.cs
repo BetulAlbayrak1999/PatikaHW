@@ -15,10 +15,17 @@ namespace BookStore.Models
             {
                 if (context.Books.Any())
                     return;
+
+                context.Genres.AddRange(
+                    new Genre { Name= "Romance"},
+                    new Genre { Name= "Sceince Fiction"},
+                    new Genre { Name= "Fantasy"}
+                    );
+
+
                 context.Books.AddRange(
                     new Book
                     {
-                        Id = 1,
                         Title = "1.book",
                         GenreId = 1,
                         PageCount = 234,
@@ -26,7 +33,6 @@ namespace BookStore.Models
                     },
                     new Book
                     {
-                        Id = 2,
                         Title = "2.book",
                         GenreId = 2,
                         PageCount = 455,
