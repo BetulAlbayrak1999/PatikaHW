@@ -37,3 +37,4 @@ C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net
 C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\FluentValidation.dll
+C:\Users\18120212004\Documents\GitHub\PatikaHW\BookStore\BookStore\bin\Debug\net5.0\Newtonsoft.Json.dll

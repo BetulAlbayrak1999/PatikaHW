@@ -42,42 +42,23 @@ namespace BookStore.Controller
             UpdateBookQuery query = new UpdateBookQuery(_context);
             UpdateBookValidator validator = new UpdateBookValidator();
             ValidationResult result = new ValidationResult();
-            try
+            if (result.IsValid)
             {
-                if (result.IsValid) {
-                    query.Handle(book);
-                    return Ok();
-                }
-                else {
-                    return BadRequest();
-                }
-                    
+                query.Handle(book);
+                return Ok();
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            else   { return BadRequest(); } 
         }
 
         [HttpPost]
         public IActionResult CreateBook([FromBody] CreateBookModel book)
         {
             CreateBookQuery query = new CreateBookQuery(_context, _mapper);
-            
-            try 
-            {
-                CreateBookValidator validator = new CreateBookValidator();
-                ValidationResult result = new ValidationResult();
-                    
-                validator.ValidateAndThrow(book);
-                query.Handle(book);
+            CreateBookValidator validator = new CreateBookValidator();
+            ValidationResult result = new ValidationResult();
 
-
-            }
-            catch (Exception ex) 
-            {
-                return BadRequest(ex.Message);
-            }
+            validator.ValidateAndThrow(book);
+            query.Handle(book);
            
             return Ok();
         }
@@ -103,8 +84,7 @@ namespace BookStore.Controller
         public IActionResult DeleteBook(int Id)
         {
             Book book = _context.Books.Find(Id);
-            try
-            {
+            
                 DeleteBookValidator validator = new DeleteBookValidator();
                 ValidationResult result = new ValidationResult();
                 DeleteBookQuery query = new DeleteBookQuery(_context);
@@ -112,11 +92,6 @@ namespace BookStore.Controller
                 validator.ValidateAndThrow(book);
                 query.Handle(Id);
 
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
             return Ok();
         }
         private bool ItemExists(int id)
