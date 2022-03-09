@@ -13,8 +13,8 @@ namespace BookStore.Models
         {
             using (var context = new Context(serviceProvider.GetRequiredService<DbContextOptions<Context>>()))
             {
-                if (context.Books.Any())
-                    return;
+                if (context.Books.Any()) { return; }
+                    
 
                 context.Genres.AddRange(
                     new Genre { Name= "Romance"},
