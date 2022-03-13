@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static BookStore.BookOperations.CreateBookQuery;
-using static BookStore.BookOperations.GetBookById;
+using static BookStore.BookOperations.GetBookByIdQuery;
 using static BookStore.BookOperations.UpdateBookQuery;
 
 namespace BookStore.Controller
@@ -37,17 +37,16 @@ namespace BookStore.Controller
         }
         
         [HttpPut("{id}")]
-        public IActionResult UpdateItem([FromBody] UpdateBookModel book)
+        public IActionResult UpdateItem([FromBody] UpdateBookModel book, int id)
         {
-            UpdateBookQuery query = new UpdateBookQuery(_context);
+            UpdateBookQuery query = new UpdateBookQuery(_context, _mapper);
             UpdateBookValidator validator = new UpdateBookValidator();
-            ValidationResult result = new ValidationResult();
-            if (result.IsValid)
-            {
-                query.Handle(book);
-                return Ok();
-            }
-            else   { return BadRequest(); } 
+            query.id = id;
+            query.Model = book;
+            validator.ValidateAndThrow(query);
+
+            query.Handle();
+            return Ok();
         }
 
         [HttpPost]
@@ -56,41 +55,35 @@ namespace BookStore.Controller
             CreateBookQuery query = new CreateBookQuery(_context, _mapper);
             CreateBookValidator validator = new CreateBookValidator();
             ValidationResult result = new ValidationResult();
-
-            validator.ValidateAndThrow(book);
-            query.Handle(book);
+            query.Model = book;
+            validator.ValidateAndThrow(query);
+            query.Handle();
            
             return Ok();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetBookById")]
         public IActionResult GetBookById(int Id)
         {
-            GetByIdBookValidator validator = new GetByIdBookValidator();
-            ValidationResult re = new ValidationResult();
-
             BooksViewModelDetail result;
-            
-            GetBookById query = new GetBookById(_context, _mapper);
-            if (re.IsValid)
-            {
-                    result = query.Handle(Id);
-                    return Ok(result);
-            }
-            return BadRequest();
+            GetBookByIdQuery query = new GetBookByIdQuery(_context, _mapper);
+            query.Id = Id;
+            GetByIdBookValidator validator = new GetByIdBookValidator();
+            validator.ValidateAndThrow(query);
+            result = query.Handle();
+            return Ok(result);
+        
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteBook")]
         public IActionResult DeleteBook(int Id)
         {
-            Book book = _context.Books.Find(Id);
-            
-                DeleteBookValidator validator = new DeleteBookValidator();
-                ValidationResult result = new ValidationResult();
-                DeleteBookQuery query = new DeleteBookQuery(_context);
-
-                validator.ValidateAndThrow(book);
-                query.Handle(Id);
+            DeleteBookValidator validator = new DeleteBookValidator();
+            ValidationResult result = new ValidationResult();
+            DeleteBookQuery query = new DeleteBookQuery(_context);
+            query.Id = Id;
+            validator.ValidateAndThrow(query);
+            query.Handle();
 
             return Ok();
         }

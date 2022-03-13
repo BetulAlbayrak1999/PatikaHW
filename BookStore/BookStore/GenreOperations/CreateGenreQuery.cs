@@ -10,10 +10,12 @@ namespace BookStore.GenreOperations
     public class CreateGenreQuery
     {
         private readonly Context _context;
+        private readonly IMapper _mapper;
         public CreateGenreModel genreModel { get; set; } 
-        public CreateGenreQuery(Context context)
+        public CreateGenreQuery(Context context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
 

@@ -11,12 +11,13 @@ namespace BookStore.BookOperations
     {
         private readonly Context _context;
         private readonly IMapper _mapper;
+        public CreateBookModel Model { get; set; }
         public CreateBookQuery(Context context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public void Handle(CreateBookModel Model)
+        public void Handle()
         {
             var book = _context.Books.SingleOrDefault(x=> x.Title == Model.Title);
             if (book is not null) {

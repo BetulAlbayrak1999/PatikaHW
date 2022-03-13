@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace BookStore.BookOperations
 {
-    public class GetBookById
+    public class GetBookByIdQuery
     {
         private readonly Context _context;
         private readonly IMapper _mapper;
-        public GetBookById(Context context, IMapper mapper)
+        public int Id;
+        public GetBookByIdQuery(Context context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public BooksViewModelDetail Handle(int Id)
+        public BooksViewModelDetail Handle()
         {
             var book = _context.Books.Include(x=> x.Genre).Where(x =>x.Id == Id).SingleOrDefault();
 

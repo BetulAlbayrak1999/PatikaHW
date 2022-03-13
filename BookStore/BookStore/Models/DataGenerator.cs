@@ -29,16 +29,16 @@ namespace BookStore.Models
                         Title = "1.book",
                         GenreId = 1,
                         PageCount = 234,
-                        PublishDate = DateTime.Now
+                        PublishDate = "12-11-11"
                     },
                     new Book
                     {
                         Title = "2.book",
                         GenreId = 2,
                         PageCount = 455,
-                        PublishDate = DateTime.UtcNow
+                        PublishDate = "12-02-01"
                     }
-                );
+                );;
 
                 context.SaveChanges();
             }

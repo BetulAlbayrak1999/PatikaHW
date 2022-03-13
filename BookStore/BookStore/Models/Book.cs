@@ -18,6 +18,6 @@ namespace BookStore.Models
 
         public int PageCount { get; set; }
 
-        public DateTime PublishDate { get; set; }
+        public string PublishDate { get; set; }
     }
 }

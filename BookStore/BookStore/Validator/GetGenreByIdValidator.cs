@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Validator
 {
-    public class GetGenreByIdValidator : AbstractValidator<GetGenreById>
+    public class GetGenreByIdValidator : AbstractValidator<GetGenreByIdQuery>
     {
         public void GetByIdBookValidator() {
             RuleFor(r => r.GenreId).GreaterThan(0);

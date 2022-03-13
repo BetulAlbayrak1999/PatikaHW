@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace BookStore.GenreOperations
 {
-    public class GetGenreById
+    public class GetGenreByIdQuery
     {
         private readonly Context _context;
         private readonly IMapper _mapper;
         public int GenreId { get; set; }
-        public GetGenreById(Context context, IMapper mapper)
+        public GetGenreByIdQuery(Context context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -22,9 +22,8 @@ namespace BookStore.GenreOperations
         {
             var genre = _context.Genres.SingleOrDefault(x => x.IsActive && x.Id == GenreId);
             if (genre is null)
-                throw new InvalidOperationException("this genre isn't exist");
-            GenresViewDetailsModel returnObj = _mapper.Map<GenresViewDetailsModel>(genre);
-            return returnObj;
+                throw new InvalidOperationException("this genre deosn't exist");
+            return _mapper.Map<GenresViewDetailsModel>(genre);
         }
     }
     public class GenresViewDetailsModel

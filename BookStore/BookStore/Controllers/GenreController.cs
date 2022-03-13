@@ -25,10 +25,10 @@ namespace BookStore.Controller
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetGenreDetail")]
         public IActionResult GetGenreDetail(int id) 
         {
-            GetGenreById query = new GetGenreById(_context, _mapper);
+            GetGenreByIdQuery query = new GetGenreByIdQuery(_context, _mapper);
             query.GenreId = id;
             GetGenreByIdValidator validator = new GetGenreByIdValidator();
             validator.ValidateAndThrow(query);
@@ -48,7 +48,7 @@ namespace BookStore.Controller
         [HttpPost]
         public IActionResult AddGenre([FromBody]CreateGenreModel genre) 
         {
-            CreateGenreQuery query = new CreateGenreQuery(_context);
+            CreateGenreQuery query = new CreateGenreQuery(_context, _mapper);
             query.genreModel = genre;
             CreateGenreValidator validator = new CreateGenreValidator();
             validator.ValidateAndThrow(query);
@@ -61,7 +61,7 @@ namespace BookStore.Controller
         [HttpPut("{id}")]
         public IActionResult UpdateGenre(int id, [FromBody] UpdateGenreModel genre)
         {
-            UpdateGenreQuery query = new UpdateGenreQuery(_context);
+            UpdateGenreQuery query = new UpdateGenreQuery(_context, _mapper);
             query.GenreId = id;
             query.Model = genre;
             UpdateGenreQueryValidator validator = new UpdateGenreQueryValidator();
