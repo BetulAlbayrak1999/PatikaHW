@@ -23,13 +23,14 @@ namespace BookStore.GenreOperations
             var genre = _context.Genres.SingleOrDefault(x => x.IsActive && x.Id == GenreId);
             if (genre is null)
                 throw new InvalidOperationException("this genre deosn't exist");
+            
             return _mapper.Map<GenresViewDetailsModel>(genre);
         }
     }
     public class GenresViewDetailsModel
     {
         public int Id { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
     }
 }
 

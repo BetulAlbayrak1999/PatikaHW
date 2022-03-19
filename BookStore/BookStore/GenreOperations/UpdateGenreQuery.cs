@@ -21,7 +21,7 @@ namespace BookStore.GenreOperations
 
         public void Handle()
         {
-            var genre = _context.Genres.Find(GenreId);
+            var genre = _context.Genres.SingleOrDefault(x=>x.Id==GenreId);
             if (genre is null)
                 throw new InvalidOperationException("we don't have this genre");
             if(_context.Genres.Any(x=>x.Name.ToLower() == Model.Name.ToLower() && x.Id != GenreId))

@@ -21,7 +21,6 @@ namespace BookStore.Models
             CreateMap<Book, BooksViewModelDetail>().ForMember(dest => dest.GenreType, opt => opt.MapFrom(src => src.Genre.Name));
             CreateMap<Book, BooksViewModel>().ForMember(dest => dest.GenreType, opt => opt.MapFrom(src => src.Genre.Name));
             CreateMap<Book, UpdateBookModel>();
-            CreateMap<UpdateBookModel, Book> ();
             CreateMap<Genre, GenresViewModel>();
             CreateMap<Genre, CreateGenreModel>();
             CreateMap<Genre, GenresViewDetailsModel>();
