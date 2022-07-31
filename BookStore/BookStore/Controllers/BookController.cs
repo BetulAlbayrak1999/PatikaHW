@@ -54,7 +54,6 @@ namespace BookStore.Controller
         {
             CreateBookQuery query = new CreateBookQuery(_context, _mapper);
             CreateBookValidator validator = new CreateBookValidator();
-            ValidationResult result = new ValidationResult();
             query.Model = book;
             validator.ValidateAndThrow(query);
             query.Handle();
@@ -72,14 +71,12 @@ namespace BookStore.Controller
             validator.ValidateAndThrow(query);
             result = query.Handle();
             return Ok(result);
-        
         }
 
         [HttpDelete("DeleteBook")]
         public IActionResult DeleteBook(int Id)
         {
             DeleteBookValidator validator = new DeleteBookValidator();
-            ValidationResult result = new ValidationResult();
             DeleteBookQuery query = new DeleteBookQuery(_context);
             query.Id = Id;
             validator.ValidateAndThrow(query);

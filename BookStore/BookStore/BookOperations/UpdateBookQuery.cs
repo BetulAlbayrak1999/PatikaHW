@@ -27,26 +27,22 @@ namespace BookStore.BookOperations
             }
             book.Id = id;
             book.Title = Model.Title;
-            /*book = new Book();
-            
-            book.PageCount = Model.PageCount;
-            book.PublishDate = Model.PublishDate;
-            book.GenreId = Model.GenreId;*/
             Model = _mapper.Map<UpdateBookModel>(book);
 
             _context.Books.Update(book);
             _context.SaveChanges();
         }
-        public class UpdateBookModel
-        {
-            public string Title { get; set; }
 
-            public int GenreId { get; set; }
+    }
+    public class UpdateBookModel
+    {
+        public string Title { get; set; }
 
-            public int PageCount { get; set; }
+        public int GenreId { get; set; }
 
-            public string PublishDate { get; set; }
+        public int PageCount { get; set; }
 
-        }
+        public string PublishDate { get; set; }
+
     }
 }

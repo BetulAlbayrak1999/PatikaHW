@@ -37,19 +37,17 @@ namespace BookStore.BookOperations
 
             return vm;
         }
+    }
+    public class BooksViewModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
 
-        public class BooksViewModel
-        {
-            public int Id { get; set; }
-            public string Title { get; set; }
+        public string GenreType { get; set; }
 
-            public string GenreType { get; set; }
+        public int PageCount { get; set; }
 
-            public int PageCount { get; set; }
-
-            public string PublishDate { get; set; }
-
-        }
+        public string PublishDate { get; set; }
 
     }
 }

@@ -22,6 +22,12 @@ namespace BookStore.Models
                     new Genre { Name= "Fantasy"}
                     );
 
+                context.Authors.AddRange(
+                    new Author { Name = "Ahmet", Surname = "Ahmetxx", BirthDate= "12-12-12" },
+                    new Author { Name = "Hamit", Surname = "Hamitxx", BirthDate = "13-13-13" },
+                    new Author { Name = "Samir", Surname = "Samirxx", BirthDate = "14-14-14" }
+                    );
+
 
                 context.Books.AddRange(
                     new Book
